@@ -54,9 +54,7 @@ public class MulticastUDPChatGrafico extends javax.swing.JFrame {
                 public void actionPerformed(ActionEvent e) {
                     try {
                         String mensaje = mensajeField.getText();
-                        byte[] m = (nombre + ": " + mensaje).getBytes();
-                        DatagramPacket mensajeSalida = new DatagramPacket(m, m.length, grupo, 8080);
-                        socket.send(mensajeSalida);
+                        enviarMensaje(mensaje);
                         mensajeField.setText("");
                         
                         if (mensaje.trim().equalsIgnoreCase("Adios")) {
@@ -74,7 +72,7 @@ public class MulticastUDPChatGrafico extends javax.swing.JFrame {
         }
     }
     
-    private void enviarMensaje(String mensaje) {
+    private void enviarMensaje(String mensaje) throws IOException {
         try {
             byte[] m = mensaje.getBytes();
             DatagramPacket mensajeSalida = new DatagramPacket(m, m.length, grupo, 8080);
